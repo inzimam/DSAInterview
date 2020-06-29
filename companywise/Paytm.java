@@ -1,35 +1,34 @@
 package companywise;
 
-import Linkedlist.LinkedList;
 import binarytree.Node;
+import linkedlist.LinkedList;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class Paytm {
     public static void main(String[] args) {
-        int[] arr = new int[]{2, 0, 1, 2, 2, 1, 2, 0, 1, 2, 2, 1, 0, 1, 1, 1, 0, 1, 0};
         String[] strArr = {"1", "0", "1", "2", "1", "1", "0", "0", "1", "2", "1", "2", "1", "2", "1", "0", "0", "1", "1", "2", "2", "0", "0", "2", "2", "2", "1", "1", "1", "2", "0", "0", "0", "2", "0", "1", "1", "1", "1", "0", "0", "0", "2", "2", "1", "2", "2", "2", "0", "2", "1", "1", "2", "2", "0", "2", "2", "1", "1", "0", "0", "2", "0", "2", "2", "1", "0", "1", "2", "0", "0", "0", "0", "2", "0", "2", "2", "0", "2", "1", "0", "0", "2", "2"};
         sortArrayOf0s1s2s(strArr, strArr.length);
         printArray(strArr);
-        arr = new int[]{1, 4, 2, 5, 9, 1, 2, 7};
+        int[] arr = new int[]{1, 4, 2, 5, 9, 1, 2, 7};
         arr = new int[]{100, 4, 2, 5, 9, 1, 2, 100};
         System.out.println(reverseString("i.like.this.program.very.much"));
         System.out.println(maxSum(arr, arr.length));
-
         LinkedList linkedList = new LinkedList();
-        linkedList.add(2);
-        linkedList.add(4);
-        linkedList.addAtFirst(1);
-        linkedList.add(5);
-        linkedList.add(6);
-        linkedList.add(7);
-        linkedList.add(8);
-        linkedList.addAtPosition(3, 8);
-        linkedList.traverse();
-        linkedList.head = reverseLinkedList(linkedList.head);
-        linkedList.traverse();
+        linkedList.insertNodeAtFront(2);
+        linkedList.insertNodeAtFront(4);
+        linkedList.insertNodeAtFront(1);
+        linkedList.insertNodeAtFront(5);
+        linkedList.insertNodeAtFront(6);
+        linkedList.insertNodeAtFront(7);
+        linkedList.insertNodeAtFront(8);
+        linkedList.insertNodeAtFront(3);
+        linkedList.print();
+        linkedList.head = reverseLinkedList(linkedList.getHead());
+        linkedList.print();
         linkedList.head = reverseLinkedListInGroups(linkedList.head, 2);
-        linkedList.traverse();
+        linkedList.print();
         Node head = makeBinaryTree();
         Node newHead = mirrorBinaryTree(head);
         System.out.println("Inzy " + isBalanced(head));
@@ -43,10 +42,8 @@ public class Paytm {
         findCounts(arr, arr.length);
 //        geeksforgeeks set
 //        adcffaet onkl
-        System.out.println("minimumIndexedCharacter "
-                + minimumIndexedCharacter("adcffaet", "onkl"));
-        System.out.println("minimumIndexedCharacter "
-                + minimumIndexedCharacter1("geeksforgeeks", "set"));
+        System.out.println("minimumIndexedCharacter " + minimumIndexedCharacter("adcffaet", "onkl"));
+        System.out.println("minimumIndexedCharacter " + minimumIndexedCharacter1("geeksforgeeks", "set"));
     }
 
     static String minimumIndexedCharacter(String str, String ptr) {
@@ -149,7 +146,6 @@ public class Paytm {
     }
 
     static boolean isBalanced(Node node) {
-
         int lh, rh;
         if (node == null)
             return true;
@@ -246,12 +242,12 @@ public class Paytm {
         System.out.println(" ");
     }
 
-    public static Linkedlist.Node reverseLinkedList(Linkedlist.Node head) {
-        Linkedlist.Node prev = null;
-        Linkedlist.Node curr = head;
+    public static linkedlist.Node reverseLinkedList(linkedlist.Node head) {
+        linkedlist.Node prev = null;
+        linkedlist.Node curr = head;
 
         while (curr != null) {
-            Linkedlist.Node temp = curr.next;
+            linkedlist.Node temp = curr.next;
             curr.next = prev;
             prev = curr;
             curr = temp;
@@ -259,14 +255,14 @@ public class Paytm {
         return prev;
     }
 
-    public static Linkedlist.Node reverseLinkedListInGroups(Linkedlist.Node head, int k) {
+    public static linkedlist.Node reverseLinkedListInGroups(linkedlist.Node head, int k) {
         if (head == null)
             return null;
-        Linkedlist.Node prev = null;
-        Linkedlist.Node curr = head;
+        linkedlist.Node prev = null;
+        linkedlist.Node curr = head;
         int i = 0;
         while (i < k && curr != null) {
-            Linkedlist.Node temp = curr.next;
+            linkedlist.Node temp = curr.next;
             curr.next = prev;
             prev = curr;
             curr = temp;

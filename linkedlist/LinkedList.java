@@ -2,11 +2,11 @@ package linkedlist;
 
 import java.util.HashSet;
 
-class LinkedList {
+public class LinkedList {
 
-    private Node head = null;
+    public Node head = null;
 
-    void insertNodeAtFront(int data) {
+    public void insertNodeAtFront(int data) {
         Node node = new Node(data);
         if (head == null)
             head = node;
@@ -16,7 +16,7 @@ class LinkedList {
         }
     }
 
-    void insertNodeAtLast(int data) {
+    public void insertNodeAtLast(int data) {
         Node node = new Node(data);
         if (head == null) {
             head = node;
@@ -29,7 +29,7 @@ class LinkedList {
         }
     }
 
-    void insertNodeAtPos(int data, int pos) {
+    public void insertNodeAtPos(int data, int pos) {
         if (pos > getCount(head)) {
             System.out.println("Invalid Position");
         } else if (pos == 0) {
@@ -49,13 +49,13 @@ class LinkedList {
         }
     }
 
-    void deleteNodeAtFront() {
+    public void deleteNodeAtFront() {
         if (head != null) {
             head = head.next;
         }
     }
 
-    void deleteNodeAtLast() {
+    public void deleteNodeAtLast() {
         Node temp = head;
         if (temp == null) {
             System.out.println("List is empty.");
@@ -73,7 +73,7 @@ class LinkedList {
         }
     }
 
-    void deleteNodeAtPos(int pos) {
+    public void deleteNodeAtPos(int pos) {
         if (pos < 0 || pos >= getCount(head)) {
             System.out.println("Invalid Position");
             return;
@@ -89,7 +89,7 @@ class LinkedList {
         }
     }
 
-    void deleteNodeByKey(int key) {
+    public void deleteNodeByKey(int key) {
         if (head == null)
             return;
         if (head.data == key) {
@@ -106,7 +106,7 @@ class LinkedList {
         }
     }
 
-    void addLoop() {
+    public void addLoop() {
         Node temp = head;
         while (temp.next != null) {
             temp = temp.next;
@@ -115,7 +115,7 @@ class LinkedList {
     }
 
 
-    void reverse() {
+    public void reverse() {
         Node prev = null;
         Node current = head;
 
@@ -128,7 +128,7 @@ class LinkedList {
         head = prev;
     }
 
-    boolean search(int key) {
+    public boolean search(int key) {
         Node temp = head;
         while (temp != null) {
             if (temp.data == key) {
@@ -139,7 +139,7 @@ class LinkedList {
         return false;
     }
 
-    int getNth(int index) {
+    public int getNth(int index) {
         Node temp = head;
         int count = 0;
         while (count < index && temp != null) {
@@ -151,7 +151,7 @@ class LinkedList {
         return -1;
     }
 
-    int printNthFromLast(int n) {
+    public int printNthFromLast(int n) {
         if (n < 1 || n > getCount(head)) {
             return -1;
         }
@@ -171,7 +171,7 @@ class LinkedList {
         return ref.data;
     }
 
-    int detectLoop() {
+    public int detectLoop() {
         Node slow = head;
         Node fast = head;
         while (fast != null && fast.next != null) {
@@ -184,7 +184,7 @@ class LinkedList {
         return 0;
     }
 
-    int countLoop(Node n) {
+    public int countLoop(Node n) {
         int count = 1;
         Node temp = n;
         while (temp.next != n) {
@@ -195,7 +195,7 @@ class LinkedList {
     }
 
 
-    int getCount(Node head) {
+    public int getCount(Node head) {
         Node temp = head;
         int count = 0;
         while (temp != null) {
@@ -205,7 +205,7 @@ class LinkedList {
         return count;
     }
 
-    void removeDuplicateFromSorted() {
+    public void removeDuplicateFromSorted() {
         Node temp = head;
         if (temp == null) {
             return;
@@ -218,7 +218,7 @@ class LinkedList {
         }
     }
 
-    void removeDuplicateFromUnsorted() {
+    public void removeDuplicateFromUnsorted() {
         if (head == null) {
             return;
         }
@@ -238,7 +238,7 @@ class LinkedList {
         }
     }
 
-    void swapNodes(int x, int y) {
+    public void swapNodes(int x, int y) {
         if (head == null)
             return;
         Node temp = head;
@@ -262,7 +262,7 @@ class LinkedList {
         }
     }
 
-    void pairWiseSwap() {
+    public void pairWiseSwap() {
         Node temp = head;
         while (temp != null && temp.next != null) {
             int data = temp.next.data;
@@ -272,11 +272,11 @@ class LinkedList {
         }
     }
 
-    Node getHead() {
+    public Node getHead() {
         return head;
     }
 
-    void segregateEvenOdd() {
+    public void segregateEvenOdd() {
         if (head == null)
             return;
         Node evenStart = null;
@@ -311,7 +311,7 @@ class LinkedList {
         head = evenHead;
     }
 
-    void moveFrontElementToLast() {
+    public void moveFrontElementToLast() {
         if (head == null)
             return;
         Node first = head;
@@ -324,12 +324,12 @@ class LinkedList {
         first.next = null;
     }
 
-    void reverseLinkedListInGroup(int num) {
+    public void reverseLinkedListInGroup(int num) {
         head = reverse(head, num);
         print();
     }
 
-    private Node reverse(Node node, int num) {
+    public Node reverse(Node node, int num) {
         Node temp = null;
         Node prev = null;
         Node curr = node;
@@ -346,7 +346,7 @@ class LinkedList {
         return prev;
     }
 
-    void print() {
+    public void print() {
         Node temp = head;
         System.out.print("List: ");
         while (temp != null) {
