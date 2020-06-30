@@ -2,7 +2,7 @@ package binarytree;
 
 
 public class BinaryTree {
-    private Node root;
+    public Node root;
     private Node targetLeaf;
     private int btHeight;
     private int maxSum;
@@ -16,11 +16,11 @@ public class BinaryTree {
         ind = 0;
     }
 
-    void add(int val) {
+    public void add(int val) {
         root = addRecursive(val, root);
     }
 
-    private Node addRecursive(int data, Node node) {
+    public Node addRecursive(int data, Node node) {
         if (node == null)
             return new Node(data);
 
@@ -32,7 +32,7 @@ public class BinaryTree {
         return node;
     }
 
-    private Node addIterative(int data, Node node) {
+    public Node addIterative(int data, Node node) {
         if (node == null)
             return new Node(data);
         Node temp = node;
@@ -53,13 +53,13 @@ public class BinaryTree {
         return node;
     }
 
-    void delete(int val) {
+    public void delete(int val) {
         if (root == null)
             return;
         deleteRecursive(root, val);
     }
 
-    private Node deleteRecursive(Node node, int value) {
+    public Node deleteRecursive(Node node, int value) {
         if (node == null)
             return node;
         if (value == node.data) {
@@ -74,7 +74,7 @@ public class BinaryTree {
         }
     }
 
-    void traverseInOrder() {
+    public void traverseInOrder() {
         traverseInOrder(root);
     }
 
@@ -86,13 +86,13 @@ public class BinaryTree {
         }
     }
 
-    void traversePreOrder() {
+    public void traversePreOrder() {
         traversePreOrder(root);
     }
 
     private void traversePreOrder(Node node) {
         if (node != null) {
-            System.out.println(node.data);
+            System.out.print(node.data + " ");
             traversePreOrder(node.left);
             traversePreOrder(node.right);
         }
@@ -112,7 +112,7 @@ public class BinaryTree {
     }
 
 
-    private void getMaxSumRec(Node node, int currSum) {
+    public void getMaxSumRec(Node node, int currSum) {
         if (node == null) return;
         currSum = currSum + node.data;
         if (node.left == null && node.right == null) {
@@ -125,7 +125,7 @@ public class BinaryTree {
         getMaxSumRec(node.right, currSum);
     }
 
-    int maxSum() {
+    public int maxSum() {
         if (root == null)
             return 0;
         getMaxSumRec(root, 0);
@@ -133,7 +133,7 @@ public class BinaryTree {
         return maxSum;
     }
 
-    private void getHeight(Node node, int currHeight) {
+    public void getHeight(Node node, int currHeight) {
         if (node == null) {
             return;
         }

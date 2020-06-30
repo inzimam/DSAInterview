@@ -1,76 +1,185 @@
 package companywise;
 
-import binarytree.Node;
+import binarytree.BinaryTree;
 import linkedlist.LinkedList;
+import linkedlist.Node;
+import util.Utils;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Paytm {
     public static void main(String[] args) {
+        // Sort an array of 0s, 1s and 2s
         String[] strArr = {"1", "0", "1", "2", "1", "1", "0", "0", "1", "2", "1", "2", "1", "2", "1", "0", "0", "1", "1", "2", "2", "0", "0", "2", "2", "2", "1", "1", "1", "2", "0", "0", "0", "2", "0", "1", "1", "1", "1", "0", "0", "0", "2", "2", "1", "2", "2", "2", "0", "2", "1", "1", "2", "2", "0", "2", "2", "1", "1", "0", "0", "2", "0", "2", "2", "1", "0", "1", "2", "0", "0", "0", "0", "2", "0", "2", "2", "0", "2", "1", "0", "0", "2", "2"};
-        sortArrayOf0s1s2s(strArr, strArr.length);
-        printArray(strArr);
-        int[] arr = new int[]{1, 4, 2, 5, 9, 1, 2, 7};
-        arr = new int[]{100, 4, 2, 5, 9, 1, 2, 100};
-        System.out.println(reverseString("i.like.this.program.very.much"));
-        System.out.println(maxSum(arr, arr.length));
-        LinkedList linkedList = new LinkedList();
-        linkedList.insertNodeAtFront(2);
-        linkedList.insertNodeAtFront(4);
-        linkedList.insertNodeAtFront(1);
-        linkedList.insertNodeAtFront(5);
-        linkedList.insertNodeAtFront(6);
-        linkedList.insertNodeAtFront(7);
-        linkedList.insertNodeAtFront(8);
-        linkedList.insertNodeAtFront(3);
+        sortArray012(strArr, strArr.length);
+        Utils.printArray(strArr, "sortArray012");
+
+        // Reverse words in a given string
+        String reverseWords = "I am a good boy";
+        System.out.println(reverseWords(reverseWords));
+
+        //Reverse a linked list
+        LinkedList linkedList = Utils.getRandomLinkedList(10);
         linkedList.print();
         linkedList.head = reverseLinkedList(linkedList.getHead());
         linkedList.print();
-        linkedList.head = reverseLinkedListInGroups(linkedList.head, 2);
+
+        //Reverse a Linked List in groups of given size.
+        linkedList.head = reverseInGroups(linkedList.getHead(), 3);
         linkedList.print();
-        Node head = makeBinaryTree();
-        Node newHead = mirrorBinaryTree(head);
-        System.out.println("Inzy " + isBalanced(head));
-        int[][] mat = {{0, 0, 0, 1},
-                {0, 1, 1, 1},
-                {1, 1, 1, 1},
-                {0, 1, 1, 1}};
-        System.out.println("Index of row with maximum 1s is "
-                + findRowMaxOne(mat, 4, 4));
-        arr = new int[]{2, 3, 3, 2, 5};
-        findCounts(arr, arr.length);
-//        geeksforgeeks set
-//        adcffaet onkl
-        System.out.println("minimumIndexedCharacter " + minimumIndexedCharacter("adcffaet", "onkl"));
-        System.out.println("minimumIndexedCharacter " + minimumIndexedCharacter1("geeksforgeeks", "set"));
+
+        //Max Sum without adjacent
+        int[] arr = Utils.getRandomArray(10);
+        Utils.printArray(arr, "Actual array");
+        System.out.println("maxSumWithoutAdjacent: " + maxSumWithoutAdjacent(arr, arr.length));
+
+        // Mirror Tree
+        BinaryTree binaryTree = Utils.getRandomBinaryTree(10);
+        binaryTree.traversePreOrder();
+        System.out.println("");
+        mirrorTree(binaryTree.root);
+        binaryTree.traversePreOrder();
+        System.out.println("");
+
+        //Row with max 1s
+        int[][] mat = {{0, 0, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 1}, {0, 1, 1, 1}};
+        System.out.println("Index of row with maximum 1s is " + rowWithMax1(mat, 4, 4));
+
+        //Frequencies of Limited Range Array Elements
+        int[] frequencies = new int[]{2, 3, 3, 2, 5};
+        frequenciesOfAllElements(frequencies, frequencies.length);
     }
 
-    static String minimumIndexedCharacter(String str, String ptr) {
-        int curr_min = Integer.MAX_VALUE;
-        for (char c : ptr.toCharArray()) {
-            if (str.indexOf(c) != -1 && str.indexOf(c) < curr_min) {
-                curr_min = str.indexOf(c);
+    // Sort an array of 0s, 1s and 2s
+    private static void sortArray012(String[] arr, int size) {
+        int low = 0, mid = 0, high = size - 1;
+        while (mid <= high) {
+            switch (arr[mid]) {
+                case "0": {
+                    Utils.swap(arr, low, mid);
+                    low++;
+                    mid++;
+                    break;
+                }
+                case "1": {
+                    mid++;
+                    break;
+                }
+                case "2": {
+                    Utils.swap(arr, mid, high);
+                    high--;
+                    break;
+                }
             }
         }
-        return curr_min == Integer.MAX_VALUE ? "$" : str.charAt(curr_min) + "";
     }
 
-    static char minimumIndexedCharacter1(String str, String ptr) {
-        Set<Character> set = new HashSet<>();
-        for (char c : ptr.toCharArray()) {
-            set.add(c);
+    // Reverse words in a given string
+    private static String reverseWords(String word) {
+        String[] arr = word.split(" ");
+        if (arr.length == 1) {
+            return arr[0];
         }
-
-        for (int i = 0; i < str.length(); i++) {
-            if (set.contains(str.charAt(i))) {
-                return str.charAt(i);
-            }
-        }
-        return '$';
+        return arr[arr.length - 1] + " " + reverseWords(word.substring(0, word.lastIndexOf(" ")));
     }
 
-    static void findCounts(int[] arr, int n) {
+    //Reverse a linked list
+    private static Node reverseLinkedList(Node head) {
+        Node prev = null;
+        Node curr = head;
+        while (curr != null) {
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    //Reverse a Linked List in groups of given size.
+    private static Node reverseInGroups(Node head, int k) {
+        if (head == null)
+            return null;
+        Node prev = null;
+        Node curr = head;
+        int count = 0;
+        while (count < k && curr != null) {
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            count++;
+        }
+        if (curr != null) {
+            head.next = reverseInGroups(curr, k);
+        }
+        return prev;
+    }
+
+    //Max Sum without adjacent
+    private static int maxSumWithoutAdjacent(int[] arr, int size) {
+        int prev_prev_sum = 0;
+        int prev_sum = arr[0];
+        int curr_sum = 0;
+        for (int i = 1; i < size; i++) {
+            curr_sum = prev_prev_sum + arr[i];
+            prev_prev_sum = Math.max(prev_sum, prev_prev_sum);
+            prev_sum = curr_sum;
+        }
+        return Math.max(prev_sum, prev_prev_sum);
+    }
+
+    // Mirror Tree
+    private static void mirrorTree(binarytree.Node root) {
+        if (root == null)
+            return;
+        mirrorTree(root.left);
+        mirrorTree(root.right);
+        binarytree.Node temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+    }
+
+    //Flattening a Linked List
+    private static void flattenLinkedList(Node head) {
+        //TBD
+    }
+
+    //Check for Balanced Tree
+    private static boolean checkBalancedTree(binarytree.Node root) {
+        int lh, rh;
+        if (root == null)
+            return true;
+        lh = height(root.left);
+        rh = height(root.right);
+
+        if (Math.abs(lh - rh) <= 1 && checkBalancedTree(root.left) && checkBalancedTree(root.right))
+            return true;
+        return false;
+    }
+
+    private static int height(binarytree.Node node) {
+        if (node == null)
+            return 0;
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    //Find the number of islands
+    private static boolean findNoOfIslands(ArrayList<ArrayList<Integer>> A, int N, int M) {
+        return true;
+    }
+
+    //Coin Change
+    private static boolean coinChange() {
+        return true;
+    }
+
+    //Frequencies of Limited Range Array Elements
+//    Given an array A[] of N positive integers which can contain integers from 1 to N where elements can be
+//    repeated or can be absent from the array. Your task is to count frequency of all elements from 1 to N.
+//    Note: Expected time complexity is O(n) with O(1) extra space.
+
+    private static void frequenciesOfAllElements(int[] arr, int n) {
         int i = 0;
         while (i < n) {
             if (arr[i] <= 0) {
@@ -91,14 +200,22 @@ public class Paytm {
         System.out.println("Below are counts of all elements");
         for (int j = 0; j < n; j++)
             System.out.println(j + 1 + "->" + Math.abs(arr[j]));
+
     }
 
+    //    Convert array into Zig-Zag fashion
+//    Given an array of DISTINCT elements, rearrange the elements of array in zig-zag fashion in O(n) time.
+//    The converted array should be in form a < b > c < d > e < f.
+    private static void convertArrayToZigZag(int[] arr) {
 
-    static int findRowMaxOne(int[][] mat, int m, int n) {
+    }
+
+    //Row with max 1s     ==== 1st way
+    private static int rowWithMax1(int[][] arr, int m, int n) {
         int row = -1;
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < m; i++) {
-            int val = getFirstOccurence(mat[i], 0, n);
+            int val = getFirstOccurence(arr[i], 0, n);
             if (val != -1 && val < min) {
                 min = val;
                 row = i;
@@ -107,8 +224,7 @@ public class Paytm {
         return row;
     }
 
-
-    static int getFirstOccurence(int[] arr, int low, int high) {
+    private static int getFirstOccurence(int[] arr, int low, int high) {
         if (high >= low) {
             int mid = low + (high - low) / 2;
             if ((mid == 0 || (arr[mid - 1] == 0)) && arr[mid] == 1)
@@ -121,7 +237,8 @@ public class Paytm {
         return -1;
     }
 
-    private static int rowWithMax1s(int[][] arr, int m, int n, int i) {
+    //Row with max 1s     ==== 2nd way
+    private static int rowWithMax1(int[][] arr, int m, int n, int i) {
         int j = 0;
         while (j < n && i < m) {
             if (arr[j][i] == 1) {
@@ -130,146 +247,11 @@ public class Paytm {
             j++;
         }
         i++;
-        return rowWithMax1s(arr, m, n, i);
+        return rowWithMax1(arr, m, n, i);
     }
 
-    private static Node makeBinaryTree() {
-        Node head = new Node(1);
-        head.left = new Node(3);
-        head.right = new Node(2);
-        head.right.left = new Node(5);
-        head.right.right = new Node(4);
-//        head.right.right.right = new Node(4);
-//        head.right.right.right.right = new Node(4);
-//        head.right.right.right.right.right = new Node(4);
-        return head;
-    }
+    //Maximum Rectangular Area in a Histogram
+    private static void areaOfHistogram(int[][] arr) {
 
-    static boolean isBalanced(Node node) {
-        int lh, rh;
-        if (node == null)
-            return true;
-        lh = height(node.left);
-        rh = height(node.right);
-
-        if (Math.abs(lh - rh) <= 1 && isBalanced(node.left) && isBalanced(node.right))
-            return true;
-        return false;
-    }
-
-    static int height(Node node) {
-        if (node == null)
-            return 0;
-        return 1 + Math.max(height(node.left), height(node.right));
-    }
-
-
-    private static Node mirrorBinaryTree(Node node) {
-        if (node == null)
-            return null;
-
-        Node temp = node.left;
-        node.left = node.right;
-        node.right = temp;
-        mirrorBinaryTree(node.left);
-        mirrorBinaryTree(node.right);
-        return node;
-    }
-
-    static int maxSum(int[] list, int list_len) {
-        int prev_sum = list[0];
-        int prev_prev_sum = 0;
-        int curr_sum;
-        for (int i = 1; i < list_len; i++) {
-            curr_sum = prev_prev_sum + list[i];
-            prev_prev_sum = Math.max(prev_prev_sum, prev_sum);
-            prev_sum = curr_sum;
-        }
-        return Math.max(prev_prev_sum, prev_sum);
-    }
-
-    //    Sort an array of 0s, 1s and 2s
-    private static void sortArrayOf0s1s2s(String[] arr, int size) {
-        int low = 0, mid = 0, high = size - 1;
-
-        while (mid <= high) {
-            switch (arr[mid]) {
-                case "0": {
-                    swap(arr, low, mid);
-                    mid++;
-                    low++;
-                    break;
-                }
-                case "1": {
-                    mid++;
-                    break;
-                }
-                case "2": {
-                    swap(arr, mid, high);
-                    high--;
-                    break;
-                }
-            }
-        }
-    }
-
-    private static void swap(String[] arr, int i, int j) {
-        String temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-
-    //Given a String of length S, reverse the whole string without reversing the individual words in it. Words are separated by dots.
-    private static String reverseString(String str) {
-        String[] arr = str.split("\\.");
-        if (arr.length == 1) {
-            return arr[0];
-        }
-        return arr[arr.length - 1] + reverseString(str.substring(0, str.lastIndexOf(".")));
-    }
-
-    private static void printArray(int[] arr) {
-        for (int a : arr) {
-            System.out.print(a + " ");
-        }
-        System.out.println(" ");
-    }
-
-    private static void printArray(String[] arr) {
-        for (String a : arr) {
-            System.out.print(a + " ");
-        }
-        System.out.println(" ");
-    }
-
-    public static linkedlist.Node reverseLinkedList(linkedlist.Node head) {
-        linkedlist.Node prev = null;
-        linkedlist.Node curr = head;
-
-        while (curr != null) {
-            linkedlist.Node temp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = temp;
-        }
-        return prev;
-    }
-
-    public static linkedlist.Node reverseLinkedListInGroups(linkedlist.Node head, int k) {
-        if (head == null)
-            return null;
-        linkedlist.Node prev = null;
-        linkedlist.Node curr = head;
-        int i = 0;
-        while (i < k && curr != null) {
-            linkedlist.Node temp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = temp;
-            i++;
-        }
-        if (curr != null)
-            head.next = reverseLinkedListInGroups(curr, k);
-        return prev;
     }
 }

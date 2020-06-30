@@ -108,7 +108,7 @@ public class ArraysQuestions {
 //        int arr2[] = {2, 5, 3, 7, 4, 8, 5, 13, 6};
         n = arr6.length;
         System.out.println("findLongestConseqSubseq " + findLongestConseqSubseq(arr6, n));
-        System.out.println("rotLeft " + Arrays.toString(rotLeft(new int[]{1, 2, 3, 4, 5}, 4)));
+//        System.out.println("rotLeft " + Arrays.toString(rotLeft(new int[]{1, 2, 3, 4, 5}, 4)));
         intersectionOfTwoUnsortedArrays(new int[]{3, 3, 3, 2, 5, 5, 7, 10,}, new int[]{3, 3, 6, 7, 1, 2, 8, 9, 10});
 
         int k = 7;
@@ -632,10 +632,12 @@ public class ArraysQuestions {
         int[] arr = new int[a.length];
 
         for (int i = 0; i < a.length; i++) {
+
             if (d + i < a.length)
                 arr[i] = a[d + i];
             else
                 arr[i] = a[a.length - i - d];
+
         }
         return arr;
     }

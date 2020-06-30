@@ -8,8 +8,7 @@ public class StringQuestions {
 
         mergeTwoSortedArray(new int[]{2, 5, 7, 9, 13}, new int[]{1, 4, 7, 8, 10, 11, 12, 13, 14});
         findMinimum(new int[]{12, 5, 17, 2, 13, 6, 4, 1, 8});
-        int a[] = {1, 0, 0, 1, 0, 1, 0, 1, 1, 1,
-                1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0};
+        int[] a = {1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0};
 
         int n = a.length;
 
@@ -91,9 +90,38 @@ public class StringQuestions {
         System.out.print(string_minimization("aabcccabba"));
     }
 
-    static char firstNonRepeated(String str) {
+    static int firstNonRepeating(String str) {
+        int NO_OF_CHARS = 256;
 
-        return "".charAt(0);
+        // Initialize all characters as absent.
+        int[] arr = new int[NO_OF_CHARS];
+        for (int i = 0; i < NO_OF_CHARS; i++)
+            arr[i] = -1;
+
+        // After below loop, the
+        // value of arr[x] is going
+        // to be index of x if x
+        // appears only once. Else
+        // the value is going to be
+        // either -1 or -2.
+        for (int i = 0; i < str.length(); i++) {
+            if (arr[str.charAt(i)] == -1)
+                arr[str.charAt(i)] = i;
+            else
+                arr[str.charAt(i)] = -2;
+        }
+
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i < NO_OF_CHARS; i++)
+
+            // If this character occurs
+            // only once and appears before
+            // the current result, then
+            // update the result
+            if (arr[i] >= 0)
+                res = Math.min(res, arr[i]);
+
+        return res;
     }
 
     static boolean isAnagram(String str, String anagram) {
@@ -107,6 +135,9 @@ public class StringQuestions {
         }
         return anagram.isEmpty();
     }
+//    Longest Common Subsequence
+//    LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length 3.
+//    LCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length 4.
 
     static int lcs1(char[] X, char[] Y, int m, int n) {
 
@@ -868,8 +899,6 @@ public class StringQuestions {
     }
 
 
-
-
     private static boolean stringRotationOfEachOther(String str, String rotation) {
         if (str.length() != rotation.length()) {
             return false;
@@ -877,7 +906,6 @@ public class StringQuestions {
         String concanated = str + str;
         return concanated.contains(rotation);
     }
-
 
 
     private static int atoi(String input) { //1234
@@ -895,7 +923,6 @@ public class StringQuestions {
         }
         return val;
     }
-
 
 
     private static boolean validShuffleOfTwoString(String first, String second, String shuffle) {

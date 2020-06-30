@@ -330,19 +330,18 @@ public class LinkedList {
     }
 
     public Node reverse(Node node, int num) {
-        Node temp = null;
         Node prev = null;
         Node curr = node;
         int i = 0;
         while (i < num && curr != null) {
-            temp = curr.next;
+            Node temp = curr.next;
             curr.next = prev;
             prev = curr;
             curr = temp;
             i++;
         }
-        if (temp != null)
-            node.next = reverse(temp, num);
+        if (curr != null)
+            node.next = reverse(curr, num);
         return prev;
     }
 
