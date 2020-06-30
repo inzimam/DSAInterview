@@ -7,33 +7,34 @@ import util.Utils;
 
 import java.util.ArrayList;
 
+// https://www.geeksforgeeks.org/must-coding-questions-company-wise/#paytm
 public class Paytm {
     public static void main(String[] args) {
-        // Sort an array of 0s, 1s and 2s
+        // 1. Sort an array of 0s, 1s and 2s
         String[] strArr = {"1", "0", "1", "2", "1", "1", "0", "0", "1", "2", "1", "2", "1", "2", "1", "0", "0", "1", "1", "2", "2", "0", "0", "2", "2", "2", "1", "1", "1", "2", "0", "0", "0", "2", "0", "1", "1", "1", "1", "0", "0", "0", "2", "2", "1", "2", "2", "2", "0", "2", "1", "1", "2", "2", "0", "2", "2", "1", "1", "0", "0", "2", "0", "2", "2", "1", "0", "1", "2", "0", "0", "0", "0", "2", "0", "2", "2", "0", "2", "1", "0", "0", "2", "2"};
         sortArray012(strArr, strArr.length);
         Utils.printArray(strArr, "sortArray012");
 
-        // Reverse words in a given string
+        // 2. Reverse words in a given string
         String reverseWords = "I am a good boy";
         System.out.println(reverseWords(reverseWords));
 
-        //Reverse a linked list
+        // 3. Reverse a linked list
         LinkedList linkedList = Utils.getRandomLinkedList(10);
         linkedList.print();
         linkedList.head = reverseLinkedList(linkedList.getHead());
         linkedList.print();
 
-        //Reverse a Linked List in groups of given size.
+        // 4. Reverse a Linked List in groups of given size.
         linkedList.head = reverseInGroups(linkedList.getHead(), 3);
         linkedList.print();
 
-        //Max Sum without adjacent
+        // 5. Max Sum without adjacent
         int[] arr = Utils.getRandomArray(10);
         Utils.printArray(arr, "Actual array");
         System.out.println("maxSumWithoutAdjacent: " + maxSumWithoutAdjacent(arr, arr.length));
 
-        // Mirror Tree
+        // 6. Mirror Tree
         BinaryTree binaryTree = Utils.getRandomBinaryTree(10);
         binaryTree.traversePreOrder();
         System.out.println("");
@@ -41,13 +42,38 @@ public class Paytm {
         binaryTree.traversePreOrder();
         System.out.println("");
 
-        //Row with max 1s
-        int[][] mat = {{0, 0, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 1}, {0, 1, 1, 1}};
-        System.out.println("Index of row with maximum 1s is " + rowWithMax1(mat, 4, 4));
+        // 7. Flattening a Linked List
+        flattenLinkedList(linkedList.getHead());
+        linkedList.print();
 
-        //Frequencies of Limited Range Array Elements
+        // 8. Check for Balanced Tree
+        System.out.println("checkBalancedTree: " + checkBalancedTree(binaryTree.root));
+
+        // 9. Find the number of islands
+        ArrayList<ArrayList<Integer>> A = new ArrayList<>();
+        System.out.println("findNoOfIslands: " + findNoOfIslands(A, A.size(), A.get(0).size()));
+
+        // 10. Coin Change
+        coinChange();
+
+        // 11. Frequencies of Limited Range Array Elements
         int[] frequencies = new int[]{2, 3, 3, 2, 5};
         frequenciesOfAllElements(frequencies, frequencies.length);
+
+        // 12. Convert array into Zig-Zag fashion
+        int[] zigzag = Utils.getRandomArray(10);
+        convertArrayToZigZag(zigzag);
+
+        // 13. Row with max 1s
+        int[][] mat = {{0, 0, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 1}, {0, 1, 1, 1}};
+        // 13. 1st way
+        System.out.println("Index of row with maximum 1s is " + rowWithMax1(mat, 4, 4));
+        // 13. 2nd way
+        System.out.println("Index of row with maximum 1s is " + rowWithMax1(mat, 4, 4));
+
+        // 14. Maximum Rectangular Area in a Histogram
+        int[][] histogram = {{0, 0, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 1}, {0, 1, 1, 1}};
+        areaOfHistogram(histogram);
     }
 
     // Sort an array of 0s, 1s and 2s
@@ -165,13 +191,13 @@ public class Paytm {
     }
 
     //Find the number of islands
-    private static boolean findNoOfIslands(ArrayList<ArrayList<Integer>> A, int N, int M) {
-        return true;
+    private static int findNoOfIslands(ArrayList<ArrayList<Integer>> A, int N, int M) {
+        return 1;
     }
 
     //Coin Change
-    private static boolean coinChange() {
-        return true;
+    private static void coinChange() {
+
     }
 
     //Frequencies of Limited Range Array Elements
