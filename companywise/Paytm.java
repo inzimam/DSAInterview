@@ -50,7 +50,7 @@ public class Paytm {
         System.out.println("checkBalancedTree: " + checkBalancedTree(binaryTree.root));
 
         // 9. Find the number of islands
-        ArrayList<ArrayList<Integer>> A = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> A = Utils.getArrayList(5, 5);
         System.out.println("findNoOfIslands: " + findNoOfIslands(A, A.size(), A.get(0).size()));
 
         // 10. Coin Change
@@ -192,6 +192,30 @@ public class Paytm {
 
     //Find the number of islands
     private static int findNoOfIslands(ArrayList<ArrayList<Integer>> A, int N, int M) {
+        int noOfIslands = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (A.get(i).get(j) == 1) {
+                    noOfIslands += dfs(A, i, j);
+                }
+            }
+        }
+        return noOfIslands;
+    }
+
+    private static int dfs(ArrayList<ArrayList<Integer>> A, int i, int j) {
+        if (i < 0 || i >= A.size() || j < 0 || j >= A.get(i).size() || A.get(i).get(j) == 0) {
+            return 0;
+        }
+        A.get(i).set(j, 0);
+        dfs(A, i + 1, j);
+        dfs(A, i - 1, j);
+        dfs(A, i, j + 1);
+        dfs(A, i, j - 1);
+        dfs(A, i + 1, j + 1);
+        dfs(A, i - 1, j - 1);
+        dfs(A, i + 1, j - 1);
+        dfs(A, i - 1, j + 1);
         return 1;
     }
 

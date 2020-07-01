@@ -1,6 +1,8 @@
 package binarytree;
 
 
+import java.io.PrintStream;
+
 public class BinaryTree {
     public Node root;
     private Node targetLeaf;
@@ -234,5 +236,30 @@ public class BinaryTree {
         System.out.print("printNodesKDistanceFromRoot: ");
         printNodes(root, 0, k);
         System.out.println("");
+    }
+
+    public void traversePreOrder(StringBuilder sb, String padding, String pointer, Node node) {
+        if (node != null) {
+            sb.append(padding);
+            sb.append(pointer);
+            sb.append(node.data);
+            sb.append("\n");
+
+            StringBuilder paddingBuilder = new StringBuilder(padding);
+            paddingBuilder.append("│  ");
+
+            String paddingForBoth = paddingBuilder.toString();
+            String pointerForRight = "└──";
+            String pointerForLeft = (node.right != null) ? "├──" : "└──";
+
+            traversePreOrder(sb, paddingForBoth, pointerForLeft, node.left);
+            traversePreOrder(sb, paddingForBoth, pointerForRight, node.right);
+        }
+    }
+
+    public void print(PrintStream os, Node node) {
+        StringBuilder sb = new StringBuilder();
+        traversePreOrder(sb, "", "", node);
+        os.print(sb.toString());
     }
 }

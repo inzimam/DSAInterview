@@ -3,6 +3,9 @@ package util;
 import binarytree.BinaryTree;
 import linkedlist.LinkedList;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Utils {
     public static int[] getRandomArray(int length) {
         int[] randoms = new int[length];
@@ -51,8 +54,33 @@ public class Utils {
     public static BinaryTree getRandomBinaryTree(int length) {
         BinaryTree binaryTree = new BinaryTree();
         for (int i = 0; i < length; i++) {
-            binaryTree.add((int) (Math.random() * 10));
+            binaryTree.add(getRandom());
         }
         return binaryTree;
+    }
+
+    private static int getRandom() {
+        Random r = new Random();
+        int low = 10;
+        int high = 100;
+        return r.nextInt(high - low) + low;
+    }
+
+    public static ArrayList<ArrayList<Integer>> getArrayList(int m, int n) {
+        ArrayList<ArrayList<Integer>> A = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                if ((i + j) % 3 == 0) arrayList.add(1);
+                else arrayList.add(0);
+            }
+            A.add(arrayList);
+        }
+        return A;
+    }
+
+    public static int max(int v1, int v2) {
+        return Math.max(v1, v2);
     }
 }
