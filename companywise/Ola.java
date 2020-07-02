@@ -70,6 +70,10 @@ public class Ola {
         int[] maxDifference = Utils.getRandomArray(10);
         Utils.printArray(maxDifference, "Array before maxDifference : ");
         System.out.println("maxDifference : " + maxDifference(maxDifference));
+
+        // 14. Find the element that appears once in sorted array
+        int element[] = new int[]{1, 1, 2, 2, 3, 4, 4};
+        elementOnceAppears(element, 0, element.length - 1);
     }
 
 
@@ -290,11 +294,24 @@ public class Ola {
     }
 
     // 14. Find the element that appears once in sorted array
-    private static void elementOnceAppears(int[] arr, int n) {
-
-        for (int i = 1; i < n; i++) {
-            if (arr[i - 1] < arr[i]) {
-
+    private static void elementOnceAppears(int[] arr, int low, int high) {
+        if (low > high) return;
+        if (low == high) {
+            System.out.println("elementOnceAppears :" + arr[low]);
+            return;
+        }
+        int mid = (low + high) / 2;
+        if (mid % 2 == 0) {
+            if (arr[mid] == arr[mid + 1]) {
+                elementOnceAppears(arr, mid + 2, high);
+            } else {
+                elementOnceAppears(arr, low, mid);
+            }
+        } else if (mid % 2 == 1) {
+            if (arr[mid] == arr[mid - 1]) {
+                elementOnceAppears(arr, mid + 1, high);
+            } else {
+                elementOnceAppears(arr, low, mid - 1);
             }
         }
     }
