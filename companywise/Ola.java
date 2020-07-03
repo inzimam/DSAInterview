@@ -315,4 +315,19 @@ public class Ola {
             }
         }
     }
+
+    // 15. Boolean Matrix Problem
+    private static void booleanMatrix(int[][] arr, int n) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == 1) {
+
+                }
+            }
+        }
+    }
+
+    private static void dfs(int[][] arr, int i, int j) {
+
+    }
 }
