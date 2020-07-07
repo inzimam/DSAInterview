@@ -18,7 +18,8 @@ public class FlipKart {
         // 2.  0 - 1 Knapsack Problem
         int[] val = new int[]{60, 100, 120};
         int[] weight = new int[]{10, 20, 30};
-        System.out.println("Inzy " + KnapsackProblem(val, weight, val.length, 50));
+        System.out.println("KnapsackProblem " + KnapsackProblem(val, weight, val.length, 50));
+        System.out.println("KnapsackProblemRec " + KnapsackProblemRec(val, weight, val.length, 50));
 
         // 3. inversion of array
         int[] arr = Utils.getRandomArray(10);
@@ -63,22 +64,31 @@ public class FlipKart {
         return max;
     }
 
-    // 2.  0 - 1 Knapsack Problem
+    // 2.  0 - 1 Knapsack Problem  1st way
     private static int KnapsackProblem(int[] val, int[] wt, int n, int W) {
         int[][] arr = new int[n + 1][W + 1];
-
         for (int i = 0; i <= n; i++) {
             for (int j = 0; j <= W; j++) {
                 if (i == 0 || j == 0) {
                     arr[i][j] = 0;
                 } else if (wt[i - 1] <= j) {
-                    arr[i][j] = Utils.max(arr[i - 1][j], val[i - 1] + arr[i - 1][j - wt[i - 1]]);
+                    arr[i][j] = Utils.max(val[i - 1] + arr[i - 1][j - wt[i - 1]], arr[i - 1][j]);
                 } else {
                     arr[i][j] = arr[i - 1][j];
                 }
             }
         }
         return arr[n][W];
+    }
+    // 2nd way recursive
+    private static int KnapsackProblemRec(int[] val, int[] wt, int n, int W) {
+        if (n == 0 || W == 0) return 0;
+        if (wt[n - 1] <= W) {
+            return Utils.max(
+                    val[n - 1] + KnapsackProblemRec(val, wt, n - 1, W - wt[n - 1])
+                    , KnapsackProblemRec(val, wt, n - 1, W));
+        }
+        return KnapsackProblemRec(val, wt, n - 1, W);
     }
 
     // 3. inversion of array
