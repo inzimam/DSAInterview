@@ -83,4 +83,8 @@ public class Utils {
     public static int max(int v1, int v2) {
         return Math.max(v1, v2);
     }
+
+    public static int min(int v1, int v2) {
+        return Math.min(v1, v2);
+    }
 }
