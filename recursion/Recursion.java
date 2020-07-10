@@ -1,64 +1,96 @@
 package recursion;
 
+import java.util.Stack;
+
 public class Recursion {
 
     public static void main(String[] args) {
-        Recursion recursion = new Recursion();
-        recursion.printNumberDsc(5);
-        recursion.printNumberAsc(5);
-        System.out.println("factorial : " + recursion.factorial(4));
-        System.out.println("factorial : " + recursion.factorialTailRec(6, 1));
-        System.out.println("palindrome : " + recursion.isPalindrome("abccba", 0, 5));
-        System.out.println("fib : " + recursion.fib(7));
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
+        reverseStack(stack);
+        delMiddleInStack(stack);
+        for (int s : stack) {
+            System.out.println(s + " ");
+        }
+        System.out.println(kthGrammar(4, 5));
+        subset("AAB", "");
+        System.out.println("");
+        insertSpace("ABC", "");
     }
 
-    void printNumberDsc(int num) {
-        if (num < 1) {
+    private static void reverseStack(Stack<Integer> s) {
+        if (s.size() == 1) return;
+        int temp = s.pop();
+        reverseStack(s);
+        insertAtStart(s, temp);
+    }
+
+    private static int kthGrammar(int N, int K) {
+        if (N == 1)
+            return 0;
+        int mid = (int) Math.pow(2, N - 1) / 2;
+        if (K <= mid) {
+            return kthGrammar(N - 1, K);
+        } else {
+            return kthGrammar(N - 1, K - mid) == 0 ? 1 : 0;
+        }
+    }
+
+    private static void insertAtStart(Stack<Integer> s, int val) {
+        if (s.isEmpty()) {
+            s.push(val);
             return;
-        } else {
-            System.out.print(num + " ");
-            printNumberDsc(num - 1);
         }
-
+        int temp = s.pop();
+        insertAtStart(s, val);
+        s.push(temp);
     }
 
-    void printNumberAsc(int num) {
-        if (num < 1) {
+
+    private static void delMiddleInStack(Stack<Integer> s) {
+        if (s.isEmpty())
             return;
-        } else {
-            System.out.print(1 + " ");
-            printNumberAsc(num - 1);
+        int mid = (s.size() + 1) / 2;
+        solve(s, mid);
+    }
+
+    private static void solve(Stack<Integer> s, int k) {
+        if (k == 1) {
+            s.pop();
+            return;
         }
+        int temp = s.pop();
+        solve(s, k - 1);
+        s.push(temp);
     }
 
-    int factorial(int num) {
-        if (num == 0) {
-            return 1;
-        } else {
-            return num * factorial(num - 1);
+    private static void subset(String input, String output) {
+        if (input.isEmpty()) {
+            System.out.print(output + " ");
+            return;
         }
+        String output2 = output + input.charAt(0);
+        subset(input.substring(1), output);
+        subset(input.substring(1), output2);
     }
 
-    int factorialTailRec(int num, int k) {
-        if (num == 0) {
-            return k;
-        } else {
-            return factorialTailRec(num - 1, k * num);
+    private static void insertSpace(String input, String output) {
+        if (input.isEmpty()) {
+            System.out.print(output + " ");
+            return;
         }
+        if (output.isEmpty()) {
+            insertSpace(input.substring(1) + "", input.charAt(0) + "");
+            return;
+        }
+        String output1 = output + "_" + input.charAt(0);
+        String output2 = output + input.charAt(0);
+        insertSpace(input.substring(1) + "", output1);
+        insertSpace(input.substring(1) + "", output2);
     }
 
-    boolean isPalindrome(String str, int start, int end) {
-        if (start == end || start > end) return true;
-
-        if (str.charAt(start) != str.charAt(end))
-            return false;
-        else
-            return isPalindrome(str, start + 1, end - 1);
-    }
-
-    int fib(int n) {
-        if (n <= 1)
-            return n;
-        return fib(n - 1) + fib(n - 2);
-    }
 }

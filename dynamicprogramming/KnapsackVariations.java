@@ -15,9 +15,11 @@ public class KnapsackVariations {
     public static void main(String[] args) {
 
         // 2.  0 - 1 Knapsack Problem
-        int[] val = new int[]{60, 100, 120};
-        int[] weight = new int[]{10, 20, 30};
-        System.out.println("KnapsackProblem " + knapsack01(val, weight, val.length, 50));
+        int[] val = new int[]{4, 6, 5, 1000};
+        int[] weight = new int[]{2, 1, 3, 1}; // W=5
+        int W = 5;
+        int[][] t = new int[weight.length + 1][W + 1];
+        System.out.println("KnapsackProblem " + knapsack(t, val, weight, val.length, W));
 
         int[] subsetSum = new int[]{5, 9, 2, 7, 6};
         System.out.println("subsetSum : " + subsetSumProblem(subsetSum, 2, subsetSum.length));
@@ -27,16 +29,26 @@ public class KnapsackVariations {
         System.out.println("findSubsetOfGivenDiff " + findSubsetOfGivenDiff(subsetSum, 2, subsetSum.length));
     }
 
+    private static int knapsack(int[][] t, int[] val, int[] wt, int n, int W) {
+        if (n == 0 || W == 0)
+            return 0;
+        if (wt[n - 1] > W) {
+            return t[n][W] = knapsack(t, val, wt, n - 1, W);
+        } else {
+            return t[n][W] = Utils.max(knapsack(t, val, wt, n - 1, W), val[n - 1] + knapsack(t, val, wt, n - 1, W - wt[n - 1]));
+        }
+    }
+
     private static int knapsack01(int[] val, int[] wt, int n, int W) {
         int[][] arr = new int[n + 1][W + 1];
         for (int i = 0; i <= n; i++) {
             for (int j = 0; j <= W; j++) {
                 if (i == 0 || j == 0) {
                     arr[i][j] = 0;
-                } else if (wt[i - 1] <= j) {
-                    arr[i][j] = Utils.max(arr[i - 1][j], val[i - 1] + arr[i - 1][j - wt[i - 1]]);
-                } else {
+                } else if (wt[i - 1] > j) {
                     arr[i][j] = arr[i - 1][j];
+                } else {
+                    arr[i][j] = Utils.max(arr[i - 1][j], val[i - 1] + arr[i - 1][j - wt[i - 1]]);
                 }
             }
         }

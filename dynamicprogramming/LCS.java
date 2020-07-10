@@ -23,6 +23,14 @@ public class LCS {
         X = "agbcba";
         System.out.println("longestPalindromicSubsequence : " + longestPalindromicSubsequence(X, X.length()));
         System.out.println("minNoOfDelForPalindrome : " + minNoOfDelForPalindrome(X, X.length()));
+        X = "geerkest";
+        Y = "ekest";
+        System.out.println("printShortestCommonSuperSequence : " + printShortestCommonSuperSequence(X, Y, X.length(), Y.length()));
+        X = "AABEBCDD";
+        System.out.println("longestRepeatingSubsequence : " + longestRepeatingSubsequence(X, X.length()));
+        X = "AXY";
+        Y = "ADXCPY";
+        System.out.println("sequencePatternMatching : " + sequencePatternMatching(X, Y, X.length(), Y.length()));
     }
 
     private static int longestSubSequence(int[][] t, String X, String Y, int m, int n) {
@@ -123,5 +131,67 @@ public class LCS {
         StringBuilder reverse = new StringBuilder(S);
         reverse = reverse.reverse();
         return S.length() - longestSubSequence(S, reverse.toString(), n, n);
+    }
+
+    private static String printShortestCommonSuperSequence(String X, String Y, int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                } else if (X.charAt(i - 1) == Y.charAt(j - 1)) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Utils.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        int i = m, j = n;
+        String output = "";
+        while (i > 0 && j > 0) {
+            if (X.charAt(i - 1) == Y.charAt(j - 1)) {
+                output = X.charAt(i - 1) + output;
+                i--;
+                j--;
+            } else {
+                if (dp[i - 1][j] > dp[i][j - 1]) {
+                    output = X.charAt(i - 1) + output;
+                    i--;
+                } else {
+                    output = Y.charAt(j - 1) + output;
+                    j--;
+                }
+            }
+        }
+        while (i > 0) {
+            output = X.charAt(i - 1) + output;
+            i--;
+        }
+        while (j > 0) {
+            output = Y.charAt(j - 1) + output;
+            j--;
+        }
+        return output;
+    }
+
+    private static int longestRepeatingSubsequence(String X, int n) {
+        int[][] dp = new int[n + 1][n + 1];
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                } else if (X.charAt(i - 1) == X.charAt(j - 1) && i != j) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Utils.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[n][n];
+    }
+
+    private static boolean sequencePatternMatching(String X, String Y, int m, int n) {
+        int l = longestSubSequence(X, Y, m, n);
+        return Utils.min(m, n) == l;
     }
 }
