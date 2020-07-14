@@ -87,4 +87,20 @@ public class Utils {
     public static int min(int v1, int v2) {
         return Math.min(v1, v2);
     }
+
+    public enum ALPHABET {
+        LOWER,
+        UPPER,
+        NOT_ALPHABET
+    }
+
+    public static ALPHABET checkAlphabet(char ch) {
+
+        if (ch >= 'A' && ch <= 'Z')
+            return ALPHABET.UPPER;
+        else if (ch >= 'a' && ch <= 'z')
+            return ALPHABET.LOWER;
+        else
+            return ALPHABET.NOT_ALPHABET;
+    }
 }

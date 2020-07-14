@@ -1,5 +1,7 @@
 package recursion;
 
+import util.Utils;
+
 import java.util.Stack;
 
 public class Recursion {
@@ -20,6 +22,10 @@ public class Recursion {
         subset("AAB", "");
         System.out.println("");
         insertSpace("ABC", "");
+        System.out.println("");
+        caseChange("abc", "");
+        System.out.println("");
+        caseOpposite("a1B2", "");
     }
 
     private static void reverseStack(Stack<Integer> s) {
@@ -93,4 +99,28 @@ public class Recursion {
         insertSpace(input.substring(1) + "", output2);
     }
 
+    private static void caseChange(String input, String output) {
+        if (input.isEmpty()) {
+            System.out.print(output + " ");
+            return;
+        }
+        String output1 = output + (input.charAt(0) + "").toUpperCase();
+        String output2 = output + (input.charAt(0) + "");
+        caseChange(input.substring(1), output1);
+        caseChange(input.substring(1), output2);
+    }
+
+    private static void caseOpposite(String input, String output) {
+        if (input.isEmpty()) {
+            System.out.print(output + " ");
+            return;
+        }
+        if (Utils.checkAlphabet(input.charAt(0)) == Utils.ALPHABET.LOWER
+                || Utils.checkAlphabet(input.charAt(0)) == Utils.ALPHABET.UPPER) {
+            caseOpposite(input.substring(1), output + (input.charAt(0) + "").toUpperCase());
+            caseOpposite(input.substring(1), output + (input.charAt(0) + "").toLowerCase());
+        } else {
+            caseOpposite(input.substring(1), output + input.charAt(0));
+        }
+    }
 }
