@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class LCS {
     public static void main(String[] args) {
-        String X = "geerkest";
-        String Y = "ekest";
+        String X = "bbbaabaa";
+        String Y = "aababbabb";
         int[][] t = new int[X.length() + 1][Y.length() + 1];
         for (int[] ints : t) {
             Arrays.fill(ints, -1);
