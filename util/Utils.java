@@ -2,8 +2,10 @@ package util;
 
 import binarytree.BinaryTree;
 import linkedlist.LinkedList;
+import linkedlist.Node;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Utils {
@@ -103,4 +105,47 @@ public class Utils {
         else
             return ALPHABET.NOT_ALPHABET;
     }
+
+    public static void insertion() {
+        LinkedList linkedList = Utils.getRandomLinkedList(10);
+        linkedList.print();
+        linkedList.head = insertionSort(linkedList.getHead());
+        linkedList.print();
+    }
+
+    public static ArrayList<Integer> plusOne(ArrayList<Integer> A) {
+
+        int sum = 0;
+        int carry = 1;
+        int i = A.size() - 1;
+
+        while (i >= 0) {
+            sum = A.get(i) + carry;
+            carry = sum >= 10 ? 1 : 0;
+            int digit = sum % 10;
+            A.set(i, digit);
+            i--;
+        }
+        if (carry > 0)
+            A.add(0, carry);
+        while (A.size() > 0 && A.get(0) == 0) {
+            A.remove(0);
+        }
+        return A;
+    }
+
+    public static Node insertionSort(Node head) {
+        Node temp = head;
+        Node res = null;
+        while (temp != null && temp.next != null) {
+            if (temp.data < temp.next.data) {
+                temp = temp.next;
+            } else {
+
+            }
+        }
+        return res;
+    }
+
+
 }

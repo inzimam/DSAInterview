@@ -10,6 +10,9 @@ import java.util.ArrayList;
 // https://www.geeksforgeeks.org/must-coding-questions-company-wise/#paytm
 public class Paytm {
     public static void main(String[] args) {
+        ArrayList<Integer> B = new ArrayList<>();
+        B.add(0);
+        Utils.plusOne(B);
         // 1. Sort an array of 0s, 1s and 2s
         String[] strArr = {"1", "0", "1", "2", "1", "1", "0", "0", "1", "2", "1", "2", "1", "2", "1", "0", "0", "1", "1", "2", "2", "0", "0", "2", "2", "2", "1", "1", "1", "2", "0", "0", "0", "2", "0", "1", "1", "1", "1", "0", "0", "0", "2", "2", "1", "2", "2", "2", "0", "2", "1", "1", "2", "2", "0", "2", "2", "1", "1", "0", "0", "2", "0", "2", "2", "1", "0", "1", "2", "0", "0", "0", "0", "2", "0", "2", "2", "0", "2", "1", "0", "0", "2", "2"};
         sortArray012(strArr, strArr.length);
@@ -146,9 +149,8 @@ public class Paytm {
     private static int maxSumWithoutAdjacent(int[] arr, int size) {
         int prev_prev_sum = 0;
         int prev_sum = arr[0];
-        int curr_sum = 0;
         for (int i = 1; i < size; i++) {
-            curr_sum = prev_prev_sum + arr[i];
+            int curr_sum = prev_prev_sum + arr[i];
             prev_prev_sum = Math.max(prev_sum, prev_prev_sum);
             prev_sum = curr_sum;
         }
