@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Heap {
     public static void main(String[] args) {
-        int arr[] = new int[]{7, 10, 4, 3, 20, 15};
+        int[] arr = new int[]{7, 10, 4, 3, 20, 15};
         System.out.println(kthSmallestElement(arr, 3));
         kLargestElement(arr, 3);
         arr = new int[]{6, 5, 3, 2, 8, 10, 9};
@@ -57,6 +57,7 @@ public class Heap {
         }
     }
 
+    // Nearly sorted array
     private static void kSortedArray(int[] arr, int k) {
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
         ArrayList<Integer> arrayList = new ArrayList<>();
@@ -83,6 +84,7 @@ public class Heap {
                 minHeap.remove();
             }
         }
+        System.out.print(k + " ClosestNumber of " + x + " : ");
         while (!minHeap.isEmpty())
             System.out.print(minHeap.poll().getValue() + " ");
     }

@@ -181,9 +181,7 @@ public class Paytm {
         lh = height(root.left);
         rh = height(root.right);
 
-        if (Math.abs(lh - rh) <= 1 && checkBalancedTree(root.left) && checkBalancedTree(root.right))
-            return true;
-        return false;
+        return Math.abs(lh - rh) <= 1 && checkBalancedTree(root.left) && checkBalancedTree(root.right);
     }
 
     private static int height(binarytree.Node node) {

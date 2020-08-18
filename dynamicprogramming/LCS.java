@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class LCS {
     public static void main(String[] args) {
-        String X = "bbbaabaa";
+        String X = "hqghumeaylnlfdxfi";
         String Y = "aababbabb";
         int[][] t = new int[X.length() + 1][Y.length() + 1];
         for (int[] ints : t) {

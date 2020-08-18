@@ -6,25 +6,12 @@ public class ArraysQuestions {
     private final static String TAG = ArraysQuestions.class.getName();
 
     public static void main(String[] args) {
-//        System.out.println("args = " + args);
 
         int[] arr = new int[]{4, 2, 3, 1};
         System.out.println(TAG + citiesGap(arr.length, 2, arr));
 
-        int ar[] = {3, 5, 4, 5, 3, 4};
-        System.out.println(TAG + ArraysQuestions.findSingle(ar, ar.length));
 
-        int[] a = {2, 3, 5, 4, 5, 3, 4};
-        int n = 7;
-        System.out.println(TAG + ArraysQuestions.singleNumber(a, n));
-
-        int[] b = {15, 18, 16, 18, 16, 15, 89};
-        System.out.println(TAG + ArraysQuestions.singleNumber(b, n));
-
-
-        arr = new int[]{5, 32, 1, 7, 10, 50, 19, 21, 2};
-        findTriplet(arr, arr.length);
-        a = new int[]{-2, -3, 4, -1, -2, 1, 5, -3};
+        int[] a = new int[]{-2, -3, 4, -1, -2, 1, 5, -3};
         System.out.println("Maximum contiguous sum is " +
                 maxSubArraySum(a));
 
@@ -44,7 +31,6 @@ public class ArraysQuestions {
         int[] arr1 = {1, 2, 2, 0, 0, 1, 2, 2, 1};
         System.out.println("Minima : " + findMinima(arr, arr.length));
         System.out.println("Minima : " + localMinima(arr, arr.length));
-        sortZeroOneTwoArray(arr1, arr1.length);
         printPairsUsingSet(arr, 12);
         largestAndSmallestNumberFromIntegerArray(arr);
 
@@ -87,7 +73,7 @@ public class ArraysQuestions {
         spiralPrint(R, C, arr5);
 
         int[] arr4 = {15, 2, 4, 8, 10, 5, 10, 23};
-        n = arr4.length;
+        int n = arr4.length;
         int sum = 22;
         subArraySum(arr4, n, sum);
         int[] A = {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1};
@@ -165,56 +151,9 @@ public class ArraysQuestions {
         return names;
     }
 
-    static int findSingle(int ar[], int ar_size) {
-        // Do XOR of all elements and return
-        int res = ar[0];
-        for (int i = 1; i < ar_size; i++)
-            res = res ^ ar[i];
-
-        return res;
-    }
-
-    static int singleNumber(int[] nums, int n) {
-        HashSet<Integer> m = new HashSet<>();
-        long sum1 = 0, sum2 = 0;
-        for (int i = 0; i < n; i++) {
-            if (!m.contains(nums[i])) {
-                sum1 += nums[i];
-                m.add(nums[i]);
-            }
-            sum2 += nums[i];
-        }
-
-        // applying the formula.
-        return (int) (2 * (sum1) - sum2);
-    }
-
-    //Find a triplet such that sum of two equals to third element
-    static void findTriplet(int[] arr, int n) {
-        HashMap<Integer, Integer> set = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            set.put(arr[i], i);
-        }
-        boolean contained = false;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (i == j) continue;
-                int val = arr[i] + arr[j];
-
-                if (set.containsKey(val) && set.get(val) != i && set.get(val) != j) {
-                    contained = true;
-                    System.out.println(arr[i] + " + " + arr[j] + " = " + val);
-                }
-            }
-        }
-        if (!contained) {
-            System.out.println("no such triplet exist");
-        }
-    }
 
     // Largest Sum Contiguous Subarray
     static int maxSubArraySum(int[] a) {
-        int size = a.length;
         int max_so_far = Integer.MIN_VALUE, max_ending_here = 0;
         for (int value : a) {
             max_ending_here = max_ending_here + value;
@@ -255,28 +194,7 @@ public class ArraysQuestions {
 
     //    Question 28 : Given an array containing zeroes, ones and twos only. Write a function to sort the
 //    given array in O(n) time complexity.
-    static void sortZeroOneTwoArray(int[] arr, int len) {
-        int start = 0;
-        int end = len - 1;
-        for (int i = 0; i < len; i++) {
-            if (arr[i] == 0) {
-                while (start > 0 && arr[start] == 0) {
-                    start++;
-                }
-                arr[i] = arr[start];
-                arr[start] = 0;
-                start++;
-            } else if (arr[i] == 2) {
-                while (end > 0 && arr[end] == 2) {
-                    end--;
-                }
-                arr[i] = arr[end];
-                arr[end] = 2;
-                end--;
-            }
-        }
-        System.out.println("");
-    }
+
 
 //    Question 29 : Find local minima in array
 //    A local minima is less than its neighbours

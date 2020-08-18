@@ -19,7 +19,7 @@ public class Recursion {
             System.out.println(s + " ");
         }
         System.out.println(kthGrammar(4, 5));
-        subset("AAB", "");
+        subset("ABC", "");
         System.out.println("");
         insertSpace("ABC", "");
         System.out.println("");
@@ -79,9 +79,10 @@ public class Recursion {
             System.out.print(output + " ");
             return;
         }
-        String output2 = output + input.charAt(0);
+        String op = output + input.charAt(0);
+        subset(input.substring(1), op);
         subset(input.substring(1), output);
-        subset(input.substring(1), output2);
+
     }
 
     private static void insertSpace(String input, String output) {

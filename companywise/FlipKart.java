@@ -26,7 +26,7 @@ public class FlipKart {
         System.out.println("inversionCountOfArray: " + inversionCountOfArray(arr, arr.length));
 
         // 4. Consecutive 1's not allowed
-        System.out.println("countStrings: " + countStrings(3));
+        System.out.println("countStrings: " + countStrings(5));
 
         // 5. Finding middle element in a linked list
         LinkedList linkedList = Utils.getRandomLinkedList(11);
@@ -80,6 +80,7 @@ public class FlipKart {
         }
         return arr[n][W];
     }
+
     // 2nd way recursive
     private static int KnapsackProblemRec(int[] val, int[] wt, int n, int W) {
         if (n == 0 || W == 0) return 0;
@@ -98,14 +99,14 @@ public class FlipKart {
 
     // 4. Consecutive 1's not allowed
     private static int countStrings(int n) {
-        int a[] = new int[n];
-        int b[] = new int[n];
-        a[0] = b[0] = 1;
-        for (int i = 1; i < n; i++) {
-            a[i] = a[i - 1] + b[i - 1];
-            b[i] = a[i - 1];
+
+        int prev = 1, prev_prev = 1, prev_prev_prev = 1;
+        for (int i = 1; i <= n; i++) {
+            prev_prev_prev = prev_prev; // 1  1  2  3  5
+            prev_prev = prev; // 1  2  3  5  8
+            prev = prev_prev + prev_prev_prev; // 2 3 5 8 13
         }
-        return a[n - 1] + b[n - 1];
+        return prev;
     }
 
     // 5. Finding middle element in a linked list
@@ -156,9 +157,10 @@ public class FlipKart {
     }
 
     private static int height(binarytree.Node root) {
-        if (root == null) return 0;
-        int leftHeight = height(root.left);
-        int rightHeight = height(root.right);
-        return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+        if (root == null)
+            return 0;
+        int lDepth = height(root.left);
+        int rDepth = height(root.right);
+        return (lDepth > rDepth) ? (lDepth + 1) : (rDepth + 1);
     }
 }

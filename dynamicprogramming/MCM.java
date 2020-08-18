@@ -6,8 +6,8 @@ public class MCM {
     public static void main(String[] args) {
         int[] mcm = {1, 2, 3, 4, 5};
         int[][] t = new int[mcm.length + 1][mcm.length + 1];
-        for (int i = 0; i < t.length; i++) {
-            Arrays.fill(t[i], -1);
+        for (int[] ints : t) {
+            Arrays.fill(ints, -1);
         }
         System.out.println("mcm " + mcm(t, mcm, 1, mcm.length - 1));
 

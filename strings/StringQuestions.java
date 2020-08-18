@@ -9,7 +9,7 @@ public class StringQuestions {
         mergeTwoSortedArray(new int[]{2, 5, 7, 9, 13}, new int[]{1, 4, 7, 8, 10, 11, 12, 13, 14});
         findMinimum(new int[]{12, 5, 17, 2, 13, 6, 4, 1, 8});
         int[] a = {1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0};
-
+        firstNonRepeating("indddiaaa");
         int n = a.length;
 
         sortBinaryArray(a, n);
@@ -26,7 +26,6 @@ public class StringQuestions {
         int m = X.length;
         n = Y.length;
         System.out.println("");
-        System.out.println("Length of LCS is" + " " + lcs1(X, Y, m, n));
         pairOfIntegerArray(new int[]{1, 4, 8, 10, 11, 12, 7, 13, 3, 14}, 15);
         secHighestSalary(new int[]{1, 4, 14, 8, 13, 10, 11, 12, 7, 13, 3, 14});
         printCommon(new int[]{2, 5, 7, 8, 9, 13}, new int[]{1, 4, 7, 8, 10, 11, 12, 13, 14},
@@ -39,7 +38,7 @@ public class StringQuestions {
 //        System.out.println(remove("acbbcddc"));// ac
         removeDuplicates("acbbcddc");
 
-        System.out.println(wordIsInString("TimesInternet", "rner"));
+        System.out.println("wordIsInString " + wordIsInString("TimesInternet", "rner"));
 
         firstNonRepeatedChar("abcdcdba");
         System.out.println("Reverse: " + reverseRecursion("prinzya"));
@@ -48,9 +47,6 @@ public class StringQuestions {
         System.out.println("Occurrence: " + occurrenceOfGivenChar("-23451415151", '5'));
         System.out.println("Palindrome: " + isPalindrome("abcdcba", 0, "abcdcba".length() - 1));
         System.out.println("Interleaved: " + isInterleaved("ABC", "DEF", "ADBECF"));
-        System.out.println("LCS: " + LCS("bqdrcvefgh", "abcvdefgh", "bqdrcvefgh".length(), "abcvdefgh".length()));
-        System.out.println("LPS: " + LPS("adbbca", "adbbca".length()));
-
 
         System.out.println(isAnagram("abicadefghija", "adeijafgihabc"));
         System.out.println(reverseRecursively("Combination"));
@@ -60,12 +56,11 @@ public class StringQuestions {
         System.out.println("rotationOfEachOther " + rotationOfEachOther("IndiaVsEngland", "EnglandIndiaVs"));
         System.out.println("rotationOfEachOther " + checkRotation("IndiaVsEngland", "EnglandVsIndia"));
         System.out.println("rotationOfEachOther " + checkRotation("IndiaVsEngland", "VsEnglandIndia"));
-        System.out.println("isPalindromString " + isPalindromString("IndiaVaaidnI"));
-
 
         firstNonRepeatingChar("abicadefghija");
         printDuplicateCharacters("Connmbination");
         numberOfVowelsInString("number Of Vowelss In String");
+        System.out.print("permutation : ");
         permutation("1234");
         System.out.println("reverseWords : " + reverseWords("How do you reverse words in a given sentence without using any library method"));
         System.out.println("reverseWords : " + reverseWordsRecursive("How do you reverse words in a given sentence without using any library method"));
@@ -87,41 +82,26 @@ public class StringQuestions {
         System.out.println("validShuffleOfTwoString " + validShuffleOfTwoString("abc", "def", "dacbef"));
 
         System.out.println("removeGivenCharacter " + removeGivenCharacter("isanagramsWord", 'a'));
-        System.out.print(string_minimization("aabcccabba"));
+//        System.out.print(string_minimization("aabcccabba"));
     }
 
+    /* The method returns index of first non-repeating
+       character in a string. If all characters are repeating
+       then returns -1 */
     static int firstNonRepeating(String str) {
         int NO_OF_CHARS = 256;
+        char[] count = new char[NO_OF_CHARS];
+        for (int i = 0; i < str.length(); i++)
+            count[str.charAt(i)]++;
+        int index = -1, i;
 
-        // Initialize all characters as absent.
-        int[] arr = new int[NO_OF_CHARS];
-        for (int i = 0; i < NO_OF_CHARS; i++)
-            arr[i] = -1;
-
-        // After below loop, the
-        // value of arr[x] is going
-        // to be index of x if x
-        // appears only once. Else
-        // the value is going to be
-        // either -1 or -2.
-        for (int i = 0; i < str.length(); i++) {
-            if (arr[str.charAt(i)] == -1)
-                arr[str.charAt(i)] = i;
-            else
-                arr[str.charAt(i)] = -2;
+        for (i = 0; i < str.length(); i++) {
+            if (count[str.charAt(i)] == 1) {
+                index = i;
+                break;
+            }
         }
-
-        int res = Integer.MAX_VALUE;
-        for (int i = 0; i < NO_OF_CHARS; i++)
-
-            // If this character occurs
-            // only once and appears before
-            // the current result, then
-            // update the result
-            if (arr[i] >= 0)
-                res = Math.min(res, arr[i]);
-
-        return res;
+        return index;
     }
 
     static boolean isAnagram(String str, String anagram) {
@@ -134,49 +114,6 @@ public class StringQuestions {
             }
         }
         return anagram.isEmpty();
-    }
-//    Longest Common Subsequence
-//    LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length 3.
-//    LCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length 4.
-
-    static int lcs1(char[] X, char[] Y, int m, int n) {
-
-        int[][] L = new int[m + 1][n + 1];
-
-        for (int i = 0; i <= m; i++) {
-            for (int j = 0; j <= n; j++) {
-                if (i == 0 || j == 0) {
-                    L[i][j] = 0;
-                } else if (X[i - 1] == Y[j - 1]) {
-                    L[i][j] = L[i - 1][j - 1] + 1;
-                } else {
-                    L[i][j] = max(L[i - 1][j], L[i][j - 1]);
-                }
-            }
-        }
-
-        int index = L[m][n];
-        char[] chars = new char[index];
-        int i = m, j = n, k = index;
-
-        while (i > 0 && j > 0) {
-            if (X[i - 1] == Y[j - 1]) {
-                chars[index - 1] = X[i - 1];
-                index--;
-                i--;
-                j--;
-            } else if (L[i - 1][j] > L[i][j - 1]) {
-                i--;
-            } else {
-                j--;
-            }
-        }
-        System.out.print("LCS: ");
-        for (char c : chars) {
-            System.out.print("" + c);
-        }
-        System.out.println("");
-        return L[m][n];
     }
 
     private static void printCommon(int[] arr1, int[] arr2, int[] arr3) {
@@ -239,10 +176,11 @@ public class StringQuestions {
             j++;
             k++;
         }
-
+        System.out.print("mergeTwoSortedArray ");
         for (int val : output) {
-            System.out.println("Inzy " + val);
+            System.out.print(" " + val);
         }
+        System.out.println("");
     }
 
     static void findMinimum(int[] arr) {
@@ -254,68 +192,6 @@ public class StringQuestions {
             }
         }
         System.out.println("Minimum: " + min);
-    }
-
-
-    static int lcs(char[] X, char[] Y, int m, int n) {
-        int[][] L = new int[m + 1][n + 1];
-
-        for (int i = 0; i <= m; i++) {
-            for (int j = 0; j <= n; j++) {
-                if (i == 0 || j == 0) {
-                    L[i][j] = 0;
-                } else if (X[i - 1] == Y[j - 1]) {
-                    L[i][j] = L[i - 1][j - 1] + 1;
-                } else {
-                    L[i][j] = max(L[i - 1][j], L[i][j - 1]);
-                }
-            }
-        }
-        int index = L[m][n];
-        char[] lcs = new char[index];
-        int i = m, j = n;
-        while (i > 0 && j > 0) {
-            if (X[i - 1] == Y[j - 1]) {
-                lcs[index - 1] = X[i - 1];
-                index--;
-                i--;
-                j--;
-            } else if (L[i - 1][j] > L[i][j - 1]) {
-                i--;
-            } else {
-                j--;
-            }
-        }
-        System.out.print("LCS: ");
-        for (char c : lcs) {
-            System.out.print(c);
-        }
-        System.out.println("");
-        return L[m][n];
-    }
-
-    public static void solution(String[] arr) {
-        solution1(arr, 0, arr.length - 1, "");
-    }
-
-    public static void solution1(String[] arr, int start, int end, String val) {
-        if (val != null && !val.equals("")) {
-            boolean found = false;
-            for (int i = start; i < end; i++) {
-                if (arr[i].contains(val)) {
-                    System.out.println("" + val);
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("null");
-            }
-        }
-        int i = 0;
-        while (arr[i].contains("print")) {
-            solution1(arr, 0, i, arr[i].substring(arr[i].indexOf("(") + 1, arr[i].indexOf(")")));
-            i++;
-        }
     }
 
     static void pairOfIntegerArray(int[] arr, int k) {
@@ -333,16 +209,12 @@ public class StringQuestions {
         System.out.println("");
     }
 
-    static int max(int a, int b) {
-        return Math.max(a, b);
-    }
-
     static void removeDuplicates(String z) {
         String k = "";
         int i;
         for (i = 1; i < z.length(); i++) {
             if (z.charAt(i) != z.charAt(i - 1)) {
-                k = k + z.charAt(i - 1);
+                k += z.charAt(i - 1);
             }
         }
         if (z.charAt(i - 2) != z.charAt(i - 1) || k.equals("")) {
@@ -402,22 +274,9 @@ public class StringQuestions {
         }
     }
 
-    // How do you check if two strings are anagrams of each other?
-    static boolean anagramsStrings(String str, String anagram) {
-        if (str.length() != anagram.length())
-            return false;
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (anagram.contains(c + "")) {
-                anagram = anagram.substring(0, anagram.indexOf(c) - 1) + anagram.substring(anagram.indexOf(c));
-            }
-        }
-        return true;
-    }
-
     static void sortBinaryArray(int[] arr, int n) {
         int j = -1;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < n; i++) {
             if (arr[i] == 0) {
                 j++;
                 int temp = arr[i];
@@ -465,65 +324,6 @@ public class StringQuestions {
             }
         }
         return j == word.length();
-    }
-
-    static String LCS(String A, String B, int m, int n) {
-        int[][] output = new int[m + 1][n + 1];
-
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (i == 0 || j == 0) {
-                    output[i][j] = 0;
-                } else if (A.charAt(i - 1) == B.charAt(j - 1)) {
-                    output[i][j] = output[i - 1][j - 1] + 1;
-                } else {
-                    output[i][j] = maxOf(output[i - 1][j], output[i][j - 1]);
-                }
-            }
-        }
-        int index = output[m][n];
-        String out = "";
-        int i = m, j = n;
-
-        while (i > 0 && j > 0) {
-            if (A.charAt(i - 1) == B.charAt(j - 1)) {
-                out = A.charAt(i - 1) + out;
-                i--;
-                j--;
-                index--;
-            } else if (output[i - 1][j] > output[i][j - 1]) {
-                i--;
-            } else {
-                j--;
-            }
-        }
-
-
-        return index + "-" + out;
-
-    }
-
-    static String LPS(String A, int m) {
-        int[][] output = new int[m][m];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (i == j) {
-                    output[i][j] = 1;
-                } else if (i > j) {
-                    output[i][j] = 0;
-                } else if (A.charAt(i) == A.charAt(j)) {
-                    output[i][j] = output[i - 1][j - 1] + 2;
-                } else {
-                    output[i][j] = maxOf(output[i + 1][j], output[i][j - 1]);
-                }
-            }
-        }
-        System.out.println("");
-        return "";
-    }
-
-    static int maxOf(int a, int b) {
-        return Math.max(a, b);
     }
 
     static void firstNonRepeatedChar(String str) {
@@ -640,16 +440,6 @@ public class StringQuestions {
         return true;
     }
 
-    private static boolean isPalindromString(String str) {
-        char[] arr = str.toCharArray();
-        for (int i = 0, j = arr.length - 1; j >= arr.length / 2 && i <= arr.length / 2; i++, j--) {
-            if (arr[i] != arr[j]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private static boolean checkRotation(String original, String rotation) {
         if (original.length() != rotation.length()) {
             return false;
@@ -739,11 +529,12 @@ public class StringQuestions {
 
     private static void permutation(String word) {
         permutation("", word);
+        System.out.println(" ");
     }
 
     private static void permutation(String perm, String word) {
         if (word.isEmpty()) {
-            System.out.println(perm);
+            System.out.print(" " + perm);
         } else {
             for (int i = 0; i < word.length(); i++) {
                 permutation(perm + word.charAt(i), word.substring(0, i) + word.substring(i + 1));

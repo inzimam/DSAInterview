@@ -5,10 +5,21 @@ import linkedlist.LinkedList;
 import linkedlist.Node;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Utils {
+    public static void main(String[] args) {
+        BinaryTree binaryTree = new BinaryTree();
+        binaryTree.add(8);
+        binaryTree.add(5);
+        binaryTree.add(2);
+        binaryTree.add(7);
+        binaryTree.add(11);
+        binaryTree.add(3);
+        binaryTree.print(System.out, binaryTree.root);
+        System.out.println("findSumInBST " + findSumInBST(binaryTree.root, 3));
+    }
+
     public static int[] getRandomArray(int length) {
         int[] randoms = new int[length];
         for (int i = 0; i < length; i++) {
@@ -20,6 +31,14 @@ public class Utils {
     public static void printArray(int[] arr, String tag) {
         System.out.print(tag + ": ");
         for (int a : arr) {
+            System.out.print(a + " ");
+        }
+        System.out.println("");
+    }
+
+    public static void printArrayList(ArrayList<Integer> arrayList, String tag) {
+        System.out.print(tag + ": ");
+        for (int a : arrayList) {
             System.out.print(a + " ");
         }
         System.out.println("");
@@ -147,5 +166,57 @@ public class Utils {
         return res;
     }
 
+    public static void sortArray(int[] arr, int n) {
+        int i = 0;
+        while (i < n) {
+            if (arr[i] > 0) {
+                int elementIndex = arr[i] - 1;
+                if (arr[elementIndex] < 0) {
+                    arr[elementIndex]--;
+                    arr[i] = 0;
+                    i++;
+                } else {
+                    int temp = arr[elementIndex];
+                    arr[elementIndex] = -1;
+                    arr[i] = temp;
+                }
+            } else {
+                i++;
+            }
+        }
+    }
 
+    public static boolean steppingNumber(int num) {
+        int mod2 = -1;
+        while (num > 0) {
+            int mod1 = num % 10;
+            if (mod2 != -1 && Math.abs(mod1 - mod2) != 1) {
+                return false;
+            }
+            num /= 10;
+            mod2 = mod1;
+        }
+        return true;
+    }
+
+    public static void print2D(int[][] mat) {
+        for (int i = 0; i < mat.length; i++) {
+            System.out.println("");
+            for (int j = 0; j < mat[i].length; j++)
+                System.out.print(mat[i][j] + " ");
+        }
+        System.out.println("");
+    }
+
+    static int sum = 0;
+
+    public static int findSumInBST(binarytree.Node root, int k) {
+        if (root == null) return 0;
+        if (root.data <= k) {
+            sum = sum + root.data;
+        }
+        findSumInBST(root.left, k);
+        findSumInBST(root.right, k);
+        return sum;
+    }
 }

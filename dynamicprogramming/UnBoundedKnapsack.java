@@ -20,7 +20,7 @@ public class UnBoundedKnapsack {
 
         int[] coin = {2, 5, 3, 6};
         System.out.println("coinChange " + maxNoWaysCoin(coin, coin.length, 10));
-        int coin1[] = {1, 2, 3};
+        int[] coin1 = {1, 2, 3};
         System.out.println("minimumCoin " + minimumCoin(coin1, coin1.length, 5));
     }
 

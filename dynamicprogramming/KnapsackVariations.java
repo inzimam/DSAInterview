@@ -2,8 +2,6 @@ package dynamicprogramming;
 
 import util.Utils;
 
-import java.util.ArrayList;
-
 public class KnapsackVariations {
     // 1. Knapsack
     // 2. Subset sum
@@ -22,11 +20,11 @@ public class KnapsackVariations {
         int[] weight = new int[]{14, 19, 1, 42, 13, 6, 11, 10, 25, 38, 49, 34, 46, 42, 3, 1, 42, 37, 25, 21, 47, 22, 49, 50, 19, 35, 32, 35, 4, 50, 19, 39, 1, 39, 28, 18, 29, 44, 49, 34, 8, 22, 11, 18, 14, 15, 10, 17, 36, 2, 1, 50, 20, 7, 49, 4, 25, 9, 45, 10, 40, 3, 46, 36, 44, 44, 24}; // W=5
         int W = 588;
         int[][] t = new int[weight.length + 1][W + 1];
-        System.out.println("KnapsackProblem " + knapsack(t, val, weight, val.length, W));
+//        System.out.println("KnapsackProblem " + knapsack(t, val, weight, val.length, W));
         System.out.println("KnapsackProblem " + knapsack01(val, weight, val.length, W));
 
         int[] subsetSum = new int[]{5, 9, 2, 7, 6};
-        System.out.println("subsetSum : " + subsetSumProblem(subsetSum, 2, subsetSum.length));
+        System.out.println("subsetSum : " + subsetSumProblem(subsetSum, 11, subsetSum.length));
         System.out.println("equalSumPartition" + (equalSumPartition(subsetSum, subsetSum.length) ? "YES" : "NO"));
         System.out.println("countOfSubsetSum " + countOfSubsetSum(subsetSum, 5, subsetSum.length));
         System.out.println("minSubsetSumDiff " + minSubsetSumDiff(subsetSum, subsetSum.length));
@@ -115,7 +113,7 @@ public class KnapsackVariations {
         for (int i = 0; i < n; i++) {
             sum = sum + arr[i];
         }
-        ArrayList<Integer> arrayList = new ArrayList<>();
+        int maxValue = Integer.MIN_VALUE;
         boolean[][] dp = new boolean[n + 1][sum + 1];
         for (int i = 0; i <= n; i++) {
             for (int j = 0; j <= sum; j++) {
@@ -131,18 +129,11 @@ public class KnapsackVariations {
                     dp[i][j] = dp[i - 1][j];
                 }
                 if (dp[n][j] && j < (sum / 2) + 1) {
-                    arrayList.add(j);
+                    maxValue = j;
                 }
             }
         }
-        int min = Integer.MAX_VALUE;
-        for (Integer integer : arrayList) {
-            int val = sum - (2 * integer);
-            if (min > val) {
-                min = val;
-            }
-        }
-        return min;
+        return sum - (2 * maxValue);
     }
 
     private static boolean findSubsetOfGivenDiff(int[] arr, int diff, int n) {
@@ -150,6 +141,8 @@ public class KnapsackVariations {
         for (int i = 0; i < n; i++) {
             sum = sum + arr[i];
         }
+        // subset1 - subset2 = diff
+        // subset1 + subset2 = sum
         int s1 = (diff + sum) / 2;
         return subsetSumProblem(arr, s1, n);
     }
